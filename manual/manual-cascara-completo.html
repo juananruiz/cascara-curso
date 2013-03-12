@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="es-ES"><head>
+
+
+  <meta charset="UTF-8"><title>Manual de Cáscara</title>
+  
+  <link rel="stylesheet" href="documentation.css" type="text/css" media="screen"></head><body class="documentation">
+  <div id="header-wrapper">
+    <div id="header">
+      <div>
+        <a class="logo" href="/"><img src="images/logo.png"></a>
+        <h1>Cáscara</h1>
+      </div>
+    </div><!-- #header -->
+  </div><!-- #header-wrapper -->
+
+  <div id="wrapper">
+    <div class="content">
+      
+<h1>Cáscara, un framework sencillo para aplicaciones web</h1>
+<p>Esto es una prueba</p>
+<ul>
+  <li><a href="#respuesta">¿Si Cáscara es la respuesta cuál era la pregunta?</a></li>
+  <li><a href="#puzzle">Las piezas del puzzle de Cáscara</a></li>
+  <li><a href="#organizacion">Organización de los archivos y carpetas</a></li>
+  <li><a href="#preparacion">Preparación e instalación del entorno de desarrollo</a></li>
+  <li><a href="#descarga">Descargando Cáscara</a></li>
+  <li><a href="#adodb">ADOdb y ActiveRecord</a></li>
+  <li><a href="#smarty">El lenguaje de plantillas Smarty</a></li>
+  <li><a href="#autenticacion">Autenticación básica</a></li>
+  <li><a href="#oop">Apéndice: Introducción a la Programación Orientada a Objetos con PHP</a></li>
+  <li><a href="#documentación">Apéndice: Enlaces a documentación ampliada</a></li>
+</ul>
+
+<h2><a name="respuesta"></a>¿Si Cáscara es la respuesta cuál era la pregunta?</h2>
+<p>Al comenzar a programar en PHP o en cualquier otro lenguaje se nos hace la boca agua pensando en todo lo que seremos capaces de hacer y en las maravillosas aplicaciones que podremos crear.</p>
+<p>Pero cuando uno empieza a desarrollar su aplicación web y esta comienza a crecer y a crecer lo que pensábamos que iba a ser una catedral gótica de armoniosa belleza se ha convertido en una maraña informe de funciones, clases, código html y sentencias sql que parecen cobrar vida propia y escapan a nuestro control. Hemos creado un monstruo.</p>
+<p>El que esto escribe, que dicho sea de paso es un intruso en esto de la informática y la programación, intentó hace tiempo poner “pie en pared” e intentó acogerse al amparo de diversos “frameworks” (“marco de trabajo” en español) que prometían hacerle la vida más fácil y darle más cosas echas . Quizás debido a su corta inteligencia todas las soluciones le venían grande. Tanto que nunca era capaz de pasar de la demo que venía con el tutorial del framework para llegar a crear aplicaciones que de verdad sirvieran para algo.</p>
+<p>Entonces en un golpe de suerte pensó que podría combinar lo que había aprendido con cada framework que había probado para conseguir algo más pequeño y sencillo que se se ajustara a su obtusa inteligencia. Y así nació <b>Cáscara</b>, un franki-framework que es la combinación de unas pocas tecnologías. Curiosamente parece que funciona.</p>
+
+<h2><a name="puzzle"></a>Las piezas del puzzle de Cáscara</h2>
+<p>En Cáscara se han combinado una serie de tecnologías estables, fiables y que han resistido la prueba del tiempo:</p>
+
+<ul>
+  <li>Patrón de diseño: MVC</li>
+  <li>Acceso a datos: ADODB y ActiveRecord</li>
+  <li>Lenguaje de plantillas: Smarty</li>
+  <li>Lenguajes de programación: PHP y JavaScript</li>
+  <li>Lenguaje de marcas y estilo: HTML y CSS</li>
+</ul>
+
+
+<p>Como complementos opcionales se puede incorporar también: AJAX, librerías PHP, librerías javascript, etc</p>
+<p>Que no te asusten tantas siglas y nombres raros, si no te suenan de nada. De cada una de estas tecnologías verás justo lo imprescindible, además son bastante amigables con los principiantes. Los únicos requisitos imprescindibles son unos conocimientos básicos de PHP y algunos de HTML</p>
+
+<h3>Patrón de diseño: MVC</h3>
+
+<p>Un patrón de diseño en informática es lo mismo que un patrón de pret a porter, un esquema que ya sabemos que funciona para cortar unos pantalones o una camisa. Y un esquema que parece funcionar desde hace bastante tiempo en desarrollo de aplicaciones web es el denominado "Modelo - Vista - Controlador".</p> 
+<p>La idea de MVC consiste en separar en tres capas las partes de una aplicación web para poder programar con mayor claridad:</p> 
+
+<ul> 
+  <li>La capa <b>Modelo</b> es la encargada de interactuar con los datos: clientes, artículos, cursos, asignaturas, calificaciones, etc.</li> 
+  <li>La capa <b>Vista</b> es la responsable de volcar la información en el explorador de tus usuarios, normalmente en lenguaje HTML aunque también podrías generar un PDF o una hoja de cálculo.</li>
+  <li>La capa <b>Controlador</b> se situa entre las dos anteriores coordinando todo el trabajo y pasando
+información desde el Modelo a la Vista o desde la Vista al Modelo.</li>
+</ul>
+
+<p>Cuando programes con Cáscara en la capa <b>Modelo</b> utilizarás clases escritas en PHP y basadas en las librerías ADODB y ActiveRecord que son las que te van a proporcionar un acceso sencillo y homogeneo a los datos. En la capa <b>Vista </b> utilizarás HTML y Smarty, también algo de JavaScript para validar formularios, ordenar tablas o conseguir algunos efectos especiales. Por último en la capa <b>Controlador</b> trabajarás sobre todo con PHP.</p>
+<p>Ahora pon una mano sobre tu pecho y otra sobre este texto y pronuncia el juramento sagrado de MVC.</p>
+
+<pre>Yo, $Nombre $Apellidos, prometo solemnemente:<br>no escribir código PHP dentro de la Vista, <br>no poner ni una pizca de HTML en el Controlador, <br>ser un programador Modelo  <br>e invitar a Juanan a una tostá con manteca colorá <br>si finalmente aprendo a programar.<br></pre>
+
+<h3>Acceso a datos: ADODB y ActiveRecord</h3>
+<p>ADODB es una librería de acceso a datos que funciona como un conector entre nuestra aplicación y la  base de datos.</p>
+<p>Gracias a ADODB nuestra aplicación puede reconfigurarse para adaptarse con sólo un pequeño cambio a un tipo distinto de gestor de bases de datos, por ejemplo pasar de usar mySQL a Oracle.</p>
+<p>Además ADODB nos proporciona una serie de funciones estandar para acceder a los datos que podemos encontrar en otros frameworks o aplicaciones desarrolladas con PHP.</p>
+<p>ActiveRecord por otro lado convierte nuestras tablas en objetos a los que podremos acceder desde nuestras métodos y controladores con mayor claridad y facilidad que si tuvieramos que tratar con los arrays de datos que suelen devolvernos las funciones habituales de acceso a datos.</p>
+<p>Es una de esas tecnologías que te ayudan a ser más ordenados y que aportan claridad a tu código.</p>
+
+<h3>Lenguaje de plantillas: Smarty</h3>
+<p>Smarty es un lenguaje de plantillas que nos permite introducir contenido dinámico en nuestras páginas sin tener que utilizar PHP.  Quedando un resultado mucho más limpio y claro.</p>
+<p>Como ejemplo vamos a ver como imprimiríamos el valor de una variable con PHP y smarty.</p>
+
+<p>Codificado en PHP:</p>
+<pre class="terminal">  &lt;p&gt;Hola &lt;?php print ($usuario); ?&gt;, bienvenido a nuestro sistema&lt;/p&gt;<br></pre>
+
+<p>Codificado en smarty</p>
+<pre class="terminal">  &lt;p&gt;Hola {$usuario}, bienvenido a nuestro sistema&lt;/p&gt;<br></pre>
+
+<p>Y si fuera algo más complejo como una tabla de datos:</p>
+
+<p>Codificado con PHP:</p>
+<pre class="terminal">  &lt;table&gt;<br>    &lt;?php<br>      foreach ($datos as $dato)<br>      {<br>        print (“&lt;tr&gt;&lt;td&gt;” . $dato . “&lt;/td&gt;&lt;/tr&gt;”);<br>      }<br>    ?&gt;<br>  &lt;/table&gt;<br></pre>
+
+<p>Codificado con smarty:</p>
+<pre class="terminal">  &lt;table&gt;<br>     {foreach from=$datos item=dato}<br>        &lt;tr&gt;&lt;td&gt;{$dato}&lt;/td&gt;&lt;/tr&gt;<br>     {/foreach}<br>   &lt;/table&gt;    <br></pre>
+
+<h3><a name="lenguajes-programacion"></a>Lenguajes de programación: PHP y JavaScript</h3>
+<p>PHP y Javascript son dos lenguajes ampliamente utilizados. Ambos
+tienen una gran comunidad de desarrolladores y de personas que aportan
+documentación, trucos y librerías que puedes utilizar libremente (como
+las que conforman Cáscara). Te recomiendo tener siempre a mano una
+buena referencia sobre ambos lenguajes. En la web oficial de PHP (<a href="http://www.php.net/manual/es/">http://www.php.net/manual/es/</a>)
+encontrarás documentación en inglés y español. Para Javascript no
+conozco un manual oficial pero una buena referencia puede ser la que
+aparece en la web de Mozilla (<a href="https://developer.mozilla.org/es/JavaScript">https://developer.mozilla.org/es/JavaScript</a>).</p>
+
+<h3>Lenguajes de marcas y estilos: HTML y CSS</h3>
+<p>Si por una remota casualidad has llegado hasta aquí sin unos
+aceptables conocimientos sobre HTML y CSS, te recomiendo volver a la
+casilla de salida y adquirir una buena destreza en ambos lenguajes. A
+tal fin te recomiendo que hagas una lectura (no exhaustiva) del
+siguiente manual: y vayas practicando a medida que avanzas.</p><p>
+
+</p><p>CSS (Cascade Style Sheet u Hojas de Estilo en Cascada) es un
+lenguaje creado para controlar el aspecto o presentación de los
+documentos definidos con HTML. CSS es la mejor forma de separar los
+contenidos y su presentación y es imprescindible para crear páginas
+web complejas y aplicaciones web con una interfaz usable</p>
+
+<p>HTML y CSS son dos lenguajes que puedes empezar a manejar en dos o
+tres días, no obstante dominar CSS puede llevar toda una vida, así que,
+al menos de momento, limítate a lo básico en este sentido. Si quieres
+profundizar más con CSS te recomiendo la lectura del libro gratuito: <a href="http://www.librosweb.es/css/index.html">"Introducción a CSS" de Javier Eguíluz Pérez</a></p>
+
+<h2><a name="organizacion"></a>Organización de los archivos y carpetas</h2>
+<img src="cascara_carpetas.png" alt="carpetas principales de cáscara" style="float: right; margin-left: 20px;"> 
+<p>Cuando te descargas Cáscara obtienes un directorio llamado "cáscara" que a su vez contiene tres carpetas:</p>
+<ul>
+  <li><b>app_sample</b>: es un molde o plantilla para empezar a construir una aplicación, puedes sacar tantas copias de esta carpeta como necesites.</li>
+  <li><b>cascara_core</b>: contiene el núcleo del framework, esto es, todos los archivos comunes a todas las aplicaciones.</li>
+  <li><b>icons</b>: una completa colección de iconos libre de derechos de autor para utilizarlos en tus aplicaciones.</li>
+</ul>
+
+<p>Dentro del directorio de la aplicación (app_sample) verás:</p>
+<img src="cascara_carpetas_desplegadas.png" alt="estructura detallada de las carpetas de cáscara" style="float: right; margin-left: 20px;"> 
+<ul>
+  <li><b>app_code:</b> el directorio donde están todos los
+controladores (*.php) y plantillas (*.tpl) de la aplicación. Si esta se
+vuelve muy compleja puede ir separando estos ficheros con
+subdirectorios o usar prefijos en los nombres de los ficheros (según el
+gusto de cada uno).</li>
+  <li><b>cache, config y templates_c:</b> son directorios que smarty necesita. Las carpetas <b>cache</b> y <b>templates_c</b>
+necesitarán tener permisos de escritura y lectura para que tu
+aplicación funcione. No te olvides de hacer un chmod 777 sobre ellas
+cuando termines de descargarte Cáscara.</li>
+  <li><b>class:</b> aquí
+van todas las clases, mayoritariamente representan la parte del
+"modelo". Se podría haber llamado "model" pero estoy muy acostumbrado a
+"class", puede que su nombre cambie en una próxima versión de cáscara</li>
+  <li><b>public:</b> aquí van todos los archivos que tienen que ser accesibles desde el exterior. El fichero <code>index.php</code> que sería el <b>Controlador</b>, con mayúscula; los <b>themes</b>, el directorio javascript: <b>js</b> y la carpeta <b>upload</b> por si los usuarios de tu aplicación tienen que subir ficheros.</li>
+</ul>
+
+<p>Por otra parte, dentro de <b>cascara_core</b> están:</p>
+<ul>
+  <li><b>lib:</b> con todas las librerias de terceros que se
+utilicen en la aplicación. Aquí está el código que hace que funcione
+Smarty, ADOdb y ActiveRecords. También podrás encontrar otras cosas:
+una libreria para generar informes en Excel, otra para generar
+documentos RTF, otra para generar gráficas, etc</li>
+  <li><b>function:</b>
+aquí irán las funciones de código a las que se llame desde distintos
+lugares dentro de la aplicación y no tengan cabida en los modelos, por
+defecto contiene sólo un fichero <code>sanitize.php</code></li>
+</ul>
+
+&nbsp;
+
+<a name="preparacion"></a>
+<h2>Preparación e instalación del entorno de desarrollo</h2>
+<p>En todo proyecto web de complejidad media o alta debes distinguir claramente entre tres entornos de trabajo:</p>
+<ul>
+  <li><img src="entorno_desarrollo.jpg" style="border: 0pt none ; float: right;" alt="ordenador personal" height="60"><b>Entorno de desarrollo</b>:
+normalmente en un equipo local, a veces en un servidor de desarrollo,
+es el entorno en el que trabajarás para crear, probar, revisar y
+mejorar tu código.</li>
+  <li><img src="entorno_preproduccion.jpg" style="border: 0pt none ; float: right;" alt="servidor individual" height="120"><b>Entorno de preproducción</b>:
+normalmente un servidor lo más parecido posible al que alojará
+definitivamente tu aplicación, sobre todo en lo que a software y
+versiones de software se refiere: PHP, Apache, MySQL, librerías, etc.
+Aquí podrás dar algún retoque para que la aplicación termine de
+funcionar, pero los cambios en el código debes hacerlos siempre en el
+entorno de desarrollo.</li>
+  <li><img src="entorno_produccion.jpg" style="border: 0pt none ; float: right;" alt="granja de servidores" height="110"><b>Entorno de producción</b>:
+es el entorno que aloja definitivamente tu aplicación y la base de
+datos, ya sea en uno o varios servidores. Quita las manos de este
+servidor, cualquier error que detectes debes intentar reproducirlo en
+preproducción para no interrumpir el servicio a tus usuarios y no
+comprometer sus datos.</li>
+</ul>
+
+<p>Puedes desarrollar el código de tu programa en la máquina donde
+normalmente trabajes. Para ir probando la aplicación conviene que
+instales una serie de servicios que, dependiendo de tus habilidades
+como administrador de sistemas te resultarán más o menos fáciles. Una
+solución cómoda y efectiva en este terreno es instalar un paquete
+integrado tipo LAMP, WAMP o MAMP. La primera letra de estos acrónimos
+corresponde al sistema operativo sobre el que corren: Linux, Windows o
+Mac; el resto de las iniciales son para Apache, MySQL y PHP. Hay una
+estupenda distribución disponible para los sistemas operativos más
+frecuentes llamada XAMPP, que además incorpora otros interesantes
+paquetes como phpMyAdmin, Webalizer, OpenSSL, etc. Puedes descargar
+XAMPP gratuitamente desde <a href="http://www.apachefriends.org/es/xampp.html">http://www.apachefriends.org/es/xampp.html</a></p>
+
+<p>También es deseable utilizar un sistema de gestión de versiones para
+asegurarte que siempre puedes revertir con seguridad los cambios que
+hagas en el código. Si en el proyecto trabaja más de una persona el
+sistema de gestión de versiones se hace imprescindible. Hasta hace poco
+<b>SVN</b> era la estrella en este ámbito, hoy en día ha sido prácticamente reemplazado por <b>git</b>.</p>
+
+<a name="descarga"></a>
+<h2>Descargando Cáscara</h2>
+<p>Una vez instalados y configurados estos servicios:
+</p><ol>
+  <li>Descarga el paquete de Cáscara desde <a href="https://github.com/juananruiz/cascara">https://github.com/juananruiz/cascara</a></li>
+  <li>Descomprime el fichero descargado en el directorio raíz del servidor web</li>
+  <li>Copia la carpeta <code>app_sample</code> a otra carpeta al mismo nivel que ella pero con el nombre de tu proyecto</li>
+  <li>Ya estás listo para empezar.</li>
+</ol>
+
+<p>Si utilizas git para control de versiones, algo que te recomiendo vivamente, puedes bajarte el código con <code>git@github.com:juananruiz/cascara.git</code> </p>
+
+<a name="adodb"></a>
+<h2>ADOdb y ActiveRecord</h2>
+<p>ADOdb es una interfaz o librería para acceder a bases de datos con
+PHP. Las funciones de acceso a base de datos en PHP no estan
+estandarizadas. Esto requiere una libreria que oculte las diferencias
+entre cada API de base de datos para que podamos cambiar facilmente de
+base de datos. Actualmente soporta My SQL, Oracle, Microsoft SQL
+Server, Sybase, Sybase SQL Anywhere, Informix, Postgre SQL, Front Base,
+SQLite, Interbase (versiones de Firebird y Borland), Foxpro, Access,
+ADO, DB2, SAP DB and ODBC. Se puede conectar a Progress y Cache Lite
+via ODBC.</p>
+
+<p>Además de permitir realizar operaciones comunes sobre bases de datos
+como SELECT, INSERT o UPDATE también permite la creación y modificación
+de tablas, volcado inicial de datos, etc. Entre sus características más
+avanzadas tenemos: paginación de resultados, gestión de transacciones y
+monitorización de rendimiento.</p>
+
+<p>Otro elemento fundamental en Cáscara es el mapeo a objectos relacionales usando la clase ADOdb_Active_Record.</p>
+
+<a name="smarty"></a>
+<h2>El lenguaje de plantillas Smarty</h2>
+	
+<p>Smarty es un motor de plantillas para PHP. Su misión es facilitar la
+separación entre la lógica de la aplicación (controlador) y la
+presentación (vista). Las plantillas de smarty son compiladas antes de
+ser enviadas al cliente, además el uso de la caché acelera el acceso a
+las páginas.</p>
+<p>Las funciones que utilizaremos con más frecuencia en Smarty son:</p>
+<h3>En la parte del controlador</h3>
+<p>Siempre utilizaremos las funciones de Smarty a través de un objeto <code>$smarty</code> que hemos inicializado en el <code>index.php</code> En los controladores haremos una llamada a ese mismo objeto con <code>global $smarty;</code> para acceder a él sin problemas.
+</p><ul>
+<li><code>$smarty-&gt;assign(“variable”, “contenido”);</code> Para pasar variables del controlador a la plantilla</li>
+<li><code>$smarty-&gt;display(“plantilla.tpl”);</code> Para renderizar la plantilla y mostrar el resultado. En Cáscara sólo se usa desde <code>index.php</code></li>
+</ul>
+<h3>En la parte de la vista o plantilla</h3>
+<ul>
+<li><code>{$variable}</code> Para mostrar el valor de una variable</li>
+<li><code>{$variable|modificador}</code> Los modificadores son muy útiles para dar el toque final a nuestras variables</li>
+<li><code>{$variable-&gt;propiedad}</code> Para mostrar el valor de una propiedad de una variable de tipo objeto</li>
+<li><code>{$variable.clave}</code> Para mostrar el valor de un elemento de un array</li>
+<li><code>{foreach from=$array item=elemento} … {$elemento} … {/foreach}</code> Para recorrer un array y mostrar sus elementos</li>
+<li><code>{if a==b}…{elseif a==c}…{/if}</code> Para construir un condicional</li>
+</ul>
+<p>Esto sólo es un arañazo en la superficie de Smarty para seguir aprendiendo te recomiendo la siguiente documentación.</p>
+
+<h3>Documentación de Smarty</h3>
+<ul>
+<li><a href="http://www.smarty.net/docsv2/es/">Smarty versión 2 en español</a>: aunque de momento no está traducida la versión 3 con esta puedes apañarte muy bien</li>
+<li><a href="http://www.smarty.net/docs/en/">Smarty versión 3 en inglés</a></li>
+</ul>
+
+<!--
+<a name="ldapsso"></a>
+<h2>Práctica: Autenticación de usuarios utilizando LDAP o SSO</h2>
+<p>En principio es relativamente sencillo montar un sistema de autenticación con una tabla de usuarios y una variable de sesión. Pero si en nuestra organización ya existe algún sistema corporativo de identidad (como LDAP o SSO) sería una pena obligar a los usuarios a tener su nombres de usuario y contraseña duplicadas en cada aplicación o sitio web al que necesiten acceder. Por tanto, una vez que entiendas como funciona la autenticación básica, trataremos de ir un poco más allá.</p>
+<h3>Pero empecemos por el principio... </h3>
+<p>El sistema de identidad estandar en muchas organizaciones es LDAP, desde hace poco también se usa SSO para facilitar un poco más la vida a nuestros usuarios. Voy a explicarte brevemente en que consisten los dos:</p>
+<ul>
+  <li><strong>LDAP</strong> viene de Lightweight Directory Access Protocol (en español Protocolo Ligero de Acceso a Directorios) y viene a ser una base de datos en forma de árbol jerárquico en el que se recogen los datos acerca de como están organizados los departamentos y usuarios en una organización. Esta base de datos suele estar alojada en un servidor o servicio al que dirigirás tus peticiones para saber si un usuario es quien dice ser y para recabar datos sobre él.</li>
+  <li><strong>SSO</strong> viene de "Single Sign On" es un servicio que permite autenticar a los usuarios contra un servicio de director  se identifique una sola vez al acceder a una de nuestras aplicaciones y el resto de las veces utiliza el "tiquet" para no tener que pedir más veces datos al usuario. La duración del "tiquet" suele ser de una jornada.</li>
+</ul>
+
+<p>Una vez que tengas a tu usuario identificado por alguno de estos dos sistemas tienes dos opciones: </p>
+<ol>
+  <li>Comprobar los datos del usuario que me pasa el servidor LDAP o SSO y en función de ellos dar acceso al usuario. </li>
+  <li>Contrastar dichos datos contra la base de datos en la que trendrás definidos los datos y privilegios  de los usuarios autorizados en tu aplicación web. </li>
+</ol>
+
+<p>Vas a implementar entonces tres sistemas distintos de acceso, si captas la idea serás capaz de montar cualquier otro que se te ponga por delante:</p>
+<ol>
+  <li>Autenticación básica contra base de datos de usuario propia.</li>
+  <li>Autenticación utilizando el servicio LDAP</li>
+  <li>Autenticación utilizando el servicio SSO</li>
+</ol>
+-->
+
+<a name="autenticacion"></a>
+<h3>Autenticación básica de usuarios.</h3>
+<p>Ya tienes tu aplicación web montada y funcionando, los usuarios cantan, las nubes se levantan... Ahora queremos que los usuarios tengan que identificarse antes de acceder a ella. Vamos a necesitar tres cosas: una tabla de usuarios, un controlador <code>login.php</code> con su correspondiente plantilla <code>login.tpl</code> y algunos retoques en el controlador principal <code>index.php</code></p>
+
+<h3>Los caballeros de la tabla... personas</h3>
+<p>La tabla de usuarios contendrá las personas que tienen autorización para acceder a tu aplicación. En principio, sólo aquellos que tengan nombre de usuario y clave en la tabla podrán acceder, más adelante podrás convertir este sistema básico en algo más sofisticado. Para empezar con algo puedes importarla o copiarla a partir de cualquier sistema que tengas actualmente para almacenar los datos de tus usuarios. </p>
+<p>Este es el código SQL para crear la tabla de usuarios, aunque me gusta llamarla "personas":</p>
+<pre class="terminal">
+CREATE TABLE `personas` (  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nif` varchar(20) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `apellidos` varchar(254) NOT NULL,
+  `correo` varchar(150) NOT NULL,
+  `login` varchar(50) DEFAULT NULL,
+  `clave` varchar(254) DEFAULT NULL,
+  `sexo` char(1) DEFAULT NULL,
+  `fecha_nacimiento` date DEFAULT NULL,
+  `telefono` varchar(25) DEFAULT NULL,
+  `domicilio` varchar(254) DEFAULT NULL,
+  `localidad` varchar(254) DEFAULT NULL,
+  `provincia` varchar(254) DEFAULT NULL,
+  `cp` varchar(15) DEFAULT NULL,
+  `organizacion` varchar(254) DEFAULT NULL,
+  `puesto` varchar(254) DEFAULT NULL,
+  `pagina_web` varchar(254) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+</pre>
+
+<p>Debes ejecutar este código desde phpMyAdmin (o cualquier otra aplicación que utilices) para crear la tabla. Una vez creada debes dar de alta uno o dos usuarios para poder probar que todo funciona correctamente.</p>
+
+<h3>Ajustes en el controlador principal</h3>
+<p>Lo siguiente es introducir algunas modificaciones en el controlador principal <code>index.php</code></p>
+<pre class="terminal">
+//Comprueba si el usuario ha iniciado sesión
+if (isset($_SESSION['usuario'])) 
+{
+  //Si ha iniciado sesion carga la variable de sesion usuario en un objeto
+	$usuario = new persona();             //Este objeto sirve para el controlador principal y los secundarios
+	$usuario = $_SESSION['usuario'];      //Desde los secundarios hay que ejecutar: global $usuario;     
+	$smarty->assign('_usuario',$usuario); //Con esto el objeto también está disponible en la plantilla
+}
+else
+{
+	// Si no ha iniciado sesión lo reenvias al controlador login.php  
+	$page = 'login';
+}
+</pre>
+
+<h3>El controlador y la plantilla de login</h3>
+<p>El controlador login tiene un doble cometido: mostrar un formulario para que el usuario introduzca su login y clave; y si ya las ha introducido comprobar que son correctos y crear la sesión de usuario.</p>
+
+<pre class="terminal">
+&lt;?php
+//--------------------------------------------------------------
+// Archivo: app_code/login.php
+//--------------------------------------------------------------
+// Gestiona el inicio de sesión de un usuario en la aplicación
+//--------------------------------------------------------------
+
+global $smarty;
+global $plantilla;
+
+$smarty->assign('_javascript', array('validation'));
+$smarty->assign('_nombre_pagina' , 'Inicio de sesión');
+
+// Comprueba si vienen los datos del formulario
+if (isset($_POST["login"]) && isset($_POST["clave"]))
+{
+  $login = sanitize($_POST["login"],2);
+  $clave = sanitize($_POST["clave"],2);
+  // Para mayo seguridad tendremos codificada nuestra clave en md5
+  $clave = md5($clave);
+  $usuario = new persona();
+  if ($usuario->load("correo = '$login' AND clave = '$clave'"))
+  {
+    $_SESSION['usuario'] = $usuario;
+    header("location:index.php?page=acceso");
+  }
+  else 
+  {
+    $aviso="Usuario o clave incorrectos.";
+    $smarty->assign('aviso',$aviso);
+    $plantilla = 'login.tpl';
+  }
+}
+else 
+{
+  // Si no vienen datos mostramos el formulario
+  $plantilla = 'login.tpl';
+}
+?&gt;
+</pre>
+
+<p>El contenido de la plantilla "login.tpl" será parecido a este:</p>
+
+<pre class="terminal">
+&lt;form action="index.php?page=login" method="post" name="form_login"&gt;
+    Usuario: &lt;input type="text" name="login" /&gt;&lt;br /&gt;
+    Clave: &lt;input type="password" name="login" /&gt;&lt;br /&gt;
+    &lt;input type="submit" name="submit" value="Acceder" /&gt;&lt;br /&gt;
+&lt;/form&gt;
+</pre>
+ 
+
+
+<h3>Apaga y vámonos</h3>
+<p>Aunque a veces no es necesario, no deja de ser un detalle elegante que des al usuario la posibilidad de cerrar la sesión antes de abandonar la aplicación o para dejar acceder a otro usuario. Para ello vas a crear un nuevo controlador <code>logout.php</code>.</p>
+
+<p>El código para este controlador sería algo como:</p>
+<pre class="terminal">
+&lt;?php
+//--------------------------------------------------------------
+// Archivo: app_code/logout.php
+//--------------------------------------------------------------
+// Cierra la sesión del usuario y reenvía a la página de login
+//--------------------------------------------------------------
+
+session_destroy(); // matamos la sesión
+header("location:index.php?page=login"); 
+?&gt;
+</pre>
+
+<h3>Autenticación con LDAP, SSO, ADAS, etc</h3>
+<p>Si en tu organización existe un servicio de directorio para autenticar a los usuarios sería muy recomendable usar dicho sistema en un lugar de uno
+propio que nos obliga a mantener una base de datos de usuario por cada aplicación y al usuario una contraseña para cada uno.</p>
+
+<p>En próximas versiones de esta documentación incluiré un ejemplo completo de como utilizar uno de estos sistemas con cáscara, aunque te adelanto que es 
+bastante sencillo</p>
+
+<a name="excel"></a>
+<h3>Utilizando librerías externas con Cáscara: PHPExcel</h3>
+
+<p>PHPExcel es una fabulosa librería que te permite escribir y leer en ficheros Excel desde PHP</p>
+<p>Puedes descargarte el código necesario y la documentación desde la dirección <a href="http://www.codeplex.com/PHPExcel/">http://www.codeplex.com/PHPExcel/</a>
+<p>Una vez descargado el paquete descomprímelo y cópialo a la carpeta <code>cascara_core/lib/phpExcel</code>. En el controlador o controladores donde vayas a utilizar la librería tienes que añadir <code>require_once('../../cascara_core/lib/phpExcel/PHPExcel.php');</code> para llamar a la libreía principal, y posiblemente tengas que incluir también otras clases en función de lo que necesites hacer. Viene bastante bien explicado en la documentación, aunque si se te olvida alguno dará un error del fichero que te falta.</p>
+
+<p>Aquí te dejo un ejemplo de creación y descarga de un fichero Excel con los datos de un array de objetos obtenidos a partir de una tabla de la base de datos.</p>
+
+<pre class="terminal"><code>&lt;?php
+// Incluye las dos clases necesarias
+require_once('../../cascara_core/lib/phpExcel/PHPExcel.php');
+require_once('../../cascara_core/lib/phpExcel/PHPExcel/IOFactory.php');
+
+// Obtiene los datos desde el objeto persona (vinculado a la tabla personas)
+$persona = new persona;
+$personas = $persona-&gt;Find("true");
+
+// Crea un objeto PHPExcel y marca como activa la primera hoja
+$objPHPExcel = new PHPExcel();
+$objPHPExcel-&gt;setActiveSheetIndex(0);
+
+// Cabecera de titulos formateada
+$objPHPExcel-&gt;getActiveSheet()-&gt;getStyle('A1:D1')-&gt;getFill()-&gt;setFillType(PHPExcel_Style_Fill::FILL_SOLID)-&gt;getStartColor()-&gt;setARGB('F0F0F0F0');
+$objPHPExcel-&gt;getActiveSheet()-&gt;getStyle('A1:D1')-&gt;getFont()-&gt;setBold(true);
+$objPHPExcel-&gt;getActiveSheet()-&gt;setCellValue("A1","NIF");
+$objPHPExcel-&gt;getActiveSheet()-&gt;setCellValue("B1","Nombre");
+$objPHPExcel-&gt;getActiveSheet()-&gt;setCellValue("C1","Apellidos");
+$objPHPExcel-&gt;getActiveSheet()-&gt;setCellValue("D1","Correo");
+
+// Itera los datos y asigna el valor a las celdas con la funcion setCellValueByColumnAndRow
+$fila = 1;
+foreach ($personas as $persona)
+{
+  $fila ++;
+  $objPHPExcel-&gt;getActiveSheet()-&gt;setCellValueByColumnAndRow(0, $fila, $linea-&gt;nif);
+  $objPHPExcel-&gt;getActiveSheet()-&gt;setCellValueByColumnAndRow(1, $fila, $linea-&gt;nombre);
+  $objPHPExcel-&gt;getActiveSheet()-&gt;setCellValueByColumnAndRow(2, $fila, $linea-&gt;apellidos);
+  $objPHPExcel-&gt;getActiveSheet()-&gt;setCellValueByColumnAndRow(3, $fila, $linea-&gt;correo);
+}
+
+// Cabeceras para Excel 5
+header('Content-Description: File Transfer');
+header('Content-Type: application/octet-stream');
+header('Content-Disposition: attachment; filename=personas.xls');
+header('Content-Transfer-Encoding: binary');
+header('Cache-Control: max-age=0');
+
+// Crea una interfaz para volcar el objeto PHPExcel a un fichero
+$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+
+// Hace que el fichero se descargue directamente
+$objWriter-&gt;save('php://output'); 
+?&gt;
+</code></pre>
+
+<a name="oop"></a>
+<h2>Apéndice: Introducción a la Programación Orientada a Objetos con PHP</h2>
+
+<h3>PHP, Cáscara y la programación orientada a objetos.</h3>
+<p>La "orientación a objetos" no es un lenguaje de programación, sino más bien una filosofía o paradigma para afrontar el diseño de un programa. La mayor parte de lenguajes de programación que permanecen en uso en la actualidad están orientados a objetos, una excepción sería el mítico lenguaje C.</p>
+
+<p>Las primeras versiones de PHP no eran orientadas a objetos, sin embargo, a partir de la versión 5 de PHP podemos decir, sin apenas sonrojarnos, que PHP es un lenguaje orientado a objetos. </p>
+
+<p>A pesar de ello se puede seguir programando en PHP sin utilizar orientación a objetos.</p>
+
+<p>En Cáscara nos quedamos a medio camino, utilizamos objetos en el Modelo (para acceder a los datos) y también estaremos todo el tiempo usando un objeto Smarty para comunicarnos con la Vista, pero los controladores, al menos de momento, no están basados en objetos.</p>
+
+<p>La orientación a objetos supone un gran salto evolutivo respecto al paradigma que la precede: la programación procedimental. En dicho modelo se definen procedimientos o funciones que luego se utilizarán de forma combinada desde un procedimiento principal para generar una aplicación. Las variables están esparcidas por todo el código aunque suele haber restricciones de "visibilidad", una función no "ve" las variables de otra a no ser que esta le pase los datos expresamente. Lo mismo sucedería con el procedimiento o función principal.</p>
+
+<p>En programación orientada a objetos lo que vas a definir son módulos que intentan abstraer una realidad. Luego, estos módulos, se van a comunicar entre si para que la aplicación funcione. Cada módulo puede funcionar de manera autónoma, incluso pueden reutilizarse en otras aplicaciones.</p>
+
+<h3>Clases, objetos, métodos y propiedades</h3>
+<p>En programación orientada a objetos las clases serían los prototipos o definiciones de los modelos de los que acabamos de hablar, mientras que los objetos son la implantación de una clase en una entidad concreta. Piensa por ejemplo en una clase "Coche" que definiría las características que tiene un coche (color, potencia del motor, número de puertas, etc)  y las funciones que éste puede realizar (arrancar, marchar, frenar, etc)</p>
+
+<p>A partir de la clase "Coche" vas a generar una entidad concreta que sería un objeto. Siguiendo nuestro ejemplo tendrás por ejemplo un "seiscientos", color rojo, tres puertas con 60 CV. Podemos generar todos los objetos que necesitemos de la clase "Coche"</p>
+
+<h4>Como se generan clases y objetos en PHP</h4>
+Para generar una clase en PHP utilizamos la palabra clave <code>class</code>. Las variables de una clase reciben el nombre de métodos y podemos definirlas con una de estas palabras: var, public, protected y private. Las funciones se definen con la palabra clave <code>function</code>
+
+<pre class="terminal">
+&lt;?php
+class Persona()
+{
+  // Normalmente empezamos definiendo las propiedades;
+  var nombre;
+  var apellidos; //var y public son equivalentes
+  public telefono; //todas las funciones definidas hasta ahora son públicas
+  private tarjeta_credito; //esta propiedad sólo es accesible desde la propia clase
+  private fecha_nacimiento;
+
+  // Ahora empezamos a definir métodos
+  function iniciar_sesion($parametro1, $parametro2)
+  {
+  }
+
+  function calcula_edad($fecha)
+  {
+       // Aquí irá el código que hará que tu función haga algo interesante
+       $edad = date("m/d/Y") - ($this->fecha_nacimiento);
+       return $edad; //en este caso la función devuelve un resultado
+  }
+}
+?&gt;
+</pre>
+
+En Cáscara cada clase la vamos a definir dentro de un fichero php con el mismo nombre de la clase y la vamos a colocar dentro del directorio "class". No olvides poner <code>&lt;?php</code> al principio y <code>?&gt;</code> al final.
+
+<h3>New: creando nuevos objetos</h3>
+La manera más común de instanciar un objeto a partir de una clase en PHP es mediante el comando <code>new</code>
+
+Este comando invoca al constructor de la clase para crear un nuevo objeto en memoria que asignaremos a una variable, almacenaremos en un array o también como propiedad de otro objeto (objetos que contienen objetos que contienen objetos...)
+
+Para muestra un botón:
+<pre class="terminal">
+$usuario = new Persona();
+</pre>
+
+<h3>Los objetos en acción</h3>
+Ya has definido tu clase, y dentro de ella algunos métodos y propiedades. Ahora llega el momento de que tus objetos cobren vida.
+<pre class="terminal">
+$usuario = new Persona(); // instanciamos el objeto
+$usuario->nombre = 'Pedro'; // asignamos valores a sus propiedades 
+$usuario->apellidos = 'Pérez Ramírez';
+$usuario->fecha_nacimiento = '25/12/1990';
+$edad = $usuario->calcula_edad('12/06/2012'); // ejecutamos un método
+echo $usuario->nombre . ' ' . $usuario->apellidos . '(' . $edad . 'años)'
+</pre>
+
+<h3>La variable $this</h3>
+<p>La palabra clave <code>$this</code> hace referencia a la propia clase desde dentro de ella.</p>
+<p>Imagina que estás desarrollando una clase Persona, con las propiedades: nombre, apellidos, fecha_nacimiento. Ahora queremos definir un método que calcule la edad actual a partir de la fecha de nacimiento. Por tanto desde ese método tendremos que acceder a una propiedad de la propia clase, la forma de hacerlo es con $this.
+<pre class="terminal">
+class Persona()
+{
+     var $nombre;
+     var $apellidos;
+     var $fecha_nacimiento;
+
+     function calcula_edad()
+     {
+          $edad = date("m/d/Y") - $this->fecha_nacimiento;
+          $return $edad;
+     }
+}
+</pre>
+ 
+
+<h3>El constructor</h3>
+<p>El constructor es una función especial de una clase a la que se llama cuando se instancia la clase en un nuevo objeto</p>
+<p>El uso de esta función es opcional y lo utilizaremos siempre que tenga sentido hacerlo</p>
+<p>Definiremos la función constructor como cualquier otra función pero con la palabra reservada <code>__construct()</code>. Observa que lleva dos guiones bajos delante.</p>
+
+<h3>Modificadores de acceso</h3>
+<p>Tanto las propiedades como los métodos de una clase pueden tener distintos niveles de acceso. Así tenemos:
+<dl>
+<dt>public</dt>
+<dd>Puede accederse a la propiedad o método desde fuera de la clase</dd>
+<dt>protected</dt>
+<dd>Sólo se puede acceder desde dentro de la clase y desde las clases hijas</dd>
+<dt>private</dt>
+<dd>Sólo se puede acceder desde la propia clase, ni siquiera desde una clase hija</dd>
+</dl>
+
+<p>Nota: Cuando declaras una propiedad con la palabra "var" se considera igual que "public", aunque en la actualidad es aconsejable usar esta última.</p>
+
+<h3>Herencia</h3>
+<p>En programación orientada a objetos la herencia es el mecanismo por el cual podemos derivar una clase a partir de otra. La herencia es de gran utilidad para implementar clases que hacen cosas parecidas pero varían ligeramente unas de otras</p>
+<p>Imagina que tienes la clase Persona, con una serie de funciones y métodos. Analizando tu aplicación ves que necesitas distintos tipos de personas: alumnos y profesores por ejemplo. Entonces implementas primero la clase Persona y luego derivas las otras dos clases a partir de ella añadiendo las características direrenciales de cada una.</p>
+
+<p>Para que una clase herede de otra usamos la palabra clave <code>extends</code></p>
+
+<p>Para que la clase <b>Alumno</b> herede de <b>Persona</b>, haríamos algo como:</p>
+<pre class="terminal">
+class Alumno extends Persona
+{
+     var $curso;
+     var $creditos;
+     function aprobar_asignatura()
+     {
+          // código de la función
+     }
+}
+</pre>
+
+<p>Por el echo de "heredar" de la clase Persona la clase Alumno ya posee las propiedades de esta: nombre, apellidos, fecha_nacimiento y también sus métodos: calcula_edad</p>
+
+<h3>Consejos del abuelo cebolleta</h3>
+<p>Cuando empieces a pensar en una nueva aplicación es muy util dibujar los objetos en forma de diagrama para tener una visión más intuitiva de ellos.</p>
+
+Aquí tienes unos cuantos consejos:
+<ul>
+  <li>Usa papel y  lápiz</li>
+  <li>Dibuja cajas que representen cada objeto.</li>
+  <li>En las cajas, crea una lista de sus métodos y propiedades.</li>
+  <li>Usa flechas y lineas entre cajas para denotar relaciones (padre – hijo) entre objetos, cuando las haya.</li>
+</ul>
+
+    </div><!-- content -->
+  </div><!-- wrapper -->
+</body></html>

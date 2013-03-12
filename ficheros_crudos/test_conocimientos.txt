@@ -1,0 +1,47 @@
+¿Cuál es la palabra clave en PHP para que una clase herede de otra?
+A new
+B extends
+C include
+D construct
+
+Los bucles en programación sirven para:
+A crear funciones encapsuladas
+B repetir una acción varias veces
+C decidir si una condición es cierta o falsa
+D interrumpir el funcionamiento de un programa
+
+¿Cuál de estas sentencias representa un condicional en PHP?
+A if ($a == $b) { return $a + $b; }
+B while ($a) { return $a; }
+C foreach ($a as $b) { echo $b; }
+D SELECT * WHERE $condicion;
+
+Para devolver una lista de registros de una base de datos SQL usamos la sentencia:
+A UPDATE 
+B INSERT 
+C SELECT
+D CREATE
+
+La construcción $smarty->assign('variable', 'valor') la usamos en Cáscara dentro de:
+A una plantilla
+B una clase
+C un modelo
+D un controlador
+ 
+En programación orientada a objetos las variables que contiene una clase se denominan:
+A instancias
+B métodos
+C propiedades
+D public
+ 
+Por regla general en el código de un controlador de Cáscara evitaremos el uso de:
+A smarty
+B variables globales
+C html
+D objetos
+ 
+Por regla general en el código de una vista de Cáscara evitaremos el uso de:
+A php
+B html
+C smarty
+D javascript

@@ -1,0 +1,10 @@
+De git solo diré que es un fantástico sistema de control de versiones, el resto te lo cuentan mejor en la pagina web <http://git-scm.com/> (hay una buena parte traducida al español)
+
+Lo que si te voy a explicar es como instalarlo y empezar a utilizarlo en un entorno Windows, Mac o Linux; ya sea     utilizando un repositorio público como [Github](http://github.com) o uno privado como [redmine](link).
+
+### Instalación en Windows
+El cliente más recomendable para Windows es msysgit y se encuentra disponible en <https://code.google.com/p/msysgit/>
+Una vez descargada y ejecutada la ultima versión estable sólo tienes que configurar un par de cosas.
+
+### Creación de clave pública y datos de usuario en Windows
+Ejecuta la aplicación "msysgit gui", en el menú **Ayuda** escoge la opción **?clave pública** Ahora haz clic en **?Generar clave pública** Te dará la opción de ponerle una clave a la clave pública Si el equipo es público o compartido debes ponérsela, si no, puedes dejarla en blanco

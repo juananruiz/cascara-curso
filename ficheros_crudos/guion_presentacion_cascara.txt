@@ -1,0 +1,97 @@
+Cáscara, un framework sencillo para aplicaciones web
+
+https://docs.google.com/present/edit?id=0AcWkd8jGhXcKZDRxNzNocV81NWhrNzNzc2Ry
+
+¿Si Cáscara es la respuesta cuál era la pregunta?
+Al comenzar a programar en php o en cualquier otro lenguaje se nos hace la boca agua pensando en todo lo que seremos capaces de hacer y en las maravillosas aplicaciones que podremos crear.
+
+Pero cuando uno empieza a desarrollar su aplicación web y esta comienza a crecer y a crecer lo que pensábamos que iba a ser una catedral gótica de armoniosa belleza se ha convertido en una maraña informe de funciones, clases, código html y sentencias sql que parecen cobrar vida propia y escapan a nuestro control. Hemos creado un monstruo.
+
+El que esto escribe, que dicho sea de paso es un intruso en esto de la informática y la programación, intentó hace tiempo poner “pie en pared” e intentó acogerse al amparo de diversos “frameworks” (“marco de trabajo” en español) que prometían hacerle la vida más fácil y darle más cosas echas . Quizás debido a su corta inteligencia todas las soluciones le venían grande. Tanto que nunca era capaz de pasar de la demo que venía con el tutorial del framework para llegar a crear aplicaciones que de verdad sirvieran para algo.
+
+Entonces en un golpe de suerte pensó que podría combinar lo que había aprendido con cada framework que había probado para conseguir algo más pequeño y sencillo que se se ajustara a su obtusa inteligencia. Y así nació “Cáscara”, un franki-framework que es la combinación de unas pocas tecnologías. Curiosamente parece que funciona.
+
+
+Las piezas del puzzle de Cáscara
+
+   * Patrón de diseño: MVC
+   * Acceso a datos: ADODB y ActiveRecord
+   * Lenguaje de plantillas: Smarty
+   * Lenguajes de programación: PHP, JavaScript
+   * HTML, CSS
+   * Aderezar al gusto con ajax, librerias php, javascript, etc
+   * Organización de los archivos y carpetas
+
+
+Patrón de diseño: MVC
+Un patrón de diseño en informática es lo mismo que un patrón de pret a porter, un esquema que ya sabemos que funciona para cortar unos pantalones o una camisa. Y un esquema que parece funcionar desde hace bastante tiempo en desarrollo de aplicaciones web es el denominado Modelo - Vista - Controlador.
+
+La cosa consiste en separar en tres capas las partes de una aplicación web para poder programar con mayor claridad.
+
+La capa “Modelo” es la encargada de interactuar con los datos: clientes, artículos, cursos, asignaturas, calificaciones, etc.
+
+La capa “Vista” es la responsable de volcar la información en el explorador de nuestros usuarios, normalmente en lenguaje HTML aunque también podríamos generar un PDF o una hoja de cálculo.
+
+La capa “Controlador” se situa entre las dos anteriores coordinando todo el trabajo y pasando información desde el Modelo a la Vista o desde la Vista al Modelo.
+
+Acceso a datos: ADODB y ActiveRecord
+ADODB es una librería de acceso a datos que funciona como un conector entre nuestra aplicación y la  base de datos.
+
+Gracias a ADODB nuestra aplicación puede reconfigurarse para adaptarse con sólo un pequeño cambio a un tipo distinto de gestor de bases de datos, por ejemplo pasar de usar mySQL a Oracle.
+
+Además ADODB nos proporciona una serie de funciones estandar para acceder a los datos que podemos encontrar en otros frameworks o aplicaciones desarrolladas con PHP.
+
+ActiveRecord por otro lado convierte nuestras tablas en objetos a los que podremos acceder desde nuestras métodos y controladores con mayor claridad y facilidad que si tuvieramos que tratar con los arrays de datos que suelen devolvernos las funciones habituales de acceso a datos.
+
+Es una de esas tecnologías que nos ayudan a ser más ordenados y que aportan claridad a nuestro código.
+
+Lenguaje de plantillas: Smarty
+Smarty es un lenguaje de plantillas que nos permite introducir contenido dinámico en nuestras páginas sin tener que utilizar php. Quedando un resultado mucho más limpio y claro.
+
+
+Como ejemplo vamos a ver como imprimiríamos el valor de una variable con php y smarty.
+php:
+<pre>
+  <code> &lt;p&gt;Hola &lt;?php print ($usuario); ?&gt;, bienvenido a nuestro sistema&lt;/p&gt;</code>
+</pre>
+
+smarty:
+<pre>
+  <code> &lt;p&gt;Hola {$usuario}, bienvenido a nuestro sistema&lt;/p&gt;</code>
+</pre>
+
+Y si fuera algo más complejo como una tabla de datos:
+php:
+<pre><code> 
+  &lt;table&gt;
+  &lt;?php
+    foreach ($datos as $dato)
+    {
+      print (“&lt;tr&gt;&lt;td&gt;” . $dato . “&lt;/td&gt;&lt;/tr&gt;”);
+    }
+ ?&gt;
+ &lt;/table&gt;
+</code></pre>
+
+smarty:
+<pre><code> 
+  &lt;table&gt;
+    {foreach from=$datos item=dato}
+        &lt;tr&gt;&lt;td&gt;{$dato}&lt;/td&gt;&lt;/tr&gt;
+    {/foreach}
+  &lt;/table&gt;
+</code></pre>
+
+Organización de los archivos y carpetas
+
+Cuando alguien se descarga Cáscara obtiene un directorio con el core (cascara_core) y una plantilla de aplicación (app_sample) de la que puede sacar tantas copias como aplicaciones necesite.
+
+Dentro del directorio de la aplicación (app_sample) tenemos:
+- app_sample:  el directorio donde están todos los controladores (*.php) y plantillas (*.tpl) de la aplicación. Si esta se vuelve muy compleja puede ir separando estos ficheros con subdirectorios o usar prefijos en los nombres de los ficheros (según el gusto de cada uno).
+- cache, config y templates_c: son directorios que smarty necesita
+- class: aquí van todas las clases, mayoritariamente representan la parte del "modelo". Se podría haber llamado "model" pero estoy muy acostumbrado a "class" ¿que pensáis?
+- public: aquí van todos los archivos que tienen que ser accesibles desde el exterior. El "index.php" que sería "El Controlador", los "themes", el directorio javascript ("js") y una carpeta "upload" por si los usuarios tienen que subir ficheros.
+
+Por fin, dentro de "cascara_core" están:
+- lib: con todas las librerias de terceros que se utilicen en la aplicación, las que trae esta versión es lo mínimo que se despacha para que la cosa funcione
+- function: aquí irán las funciones de código a las que se llame desde distintos lugares dentro de la aplicación y no tengan cabida en los modelos, por defecto viene sólo con sanitize.php.

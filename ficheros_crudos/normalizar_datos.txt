@@ -1,4 +1,4 @@
-Imagina que tienes una tabla o listado con los siguientes campos y registros, te propones normalizarla. 
+Imagina que tienes una tabla o listado con los siguientes campos y registros, te propones normalizarla, buscando los campos que representan propiedades ajenas al propio concepto de la clase y pasándolos a una nueva tabla. En este caso los campos son: "Tipo", "Departamento" y "Estado". 
 
 Curso     Asignatura     Código     Créditos     Tipo     Departamento     Estados
 1     Algebra Lineal     1960001     12     Formación Básica     ÁLGEBRA     Vigente
@@ -20,7 +20,7 @@ Curso     Asignatura     Código     Créditos     Tipo     Departamento     Est
 4     Trabajo Fin de Grado     1960038     12     Trabajo fin de grado           Pendiente de Implantación
 1. Si los datos están en un fichero los importamos a la base de datos, con ello creamos la tabla "principal": asignaturas
 
-2. Editamos la estrutura de la tabla y añadimos los campos:
+2. Editamos la estructura de la tabla y añadimos los campos:
 
 
    * id_departamento
@@ -36,7 +36,7 @@ Curso     Asignatura     Código     Créditos     Tipo     Departamento     Est
    * asignaturas_tipos
    * asignaturas_estados
 
-4.  En principio nos bastará con un par de campos para cada una de las tablas: 
+4.  En principio, nos bastará con un par de campos para cada una de las tablas: 
 
 
    * departamento.id, departamento.nombre
@@ -52,7 +52,7 @@ INSERT INTO asignaturas_tipos (tipo) SELECT DISTINCT tipo from asignaturas
 Aquí la jugada maestra está en el uso de la palabra "DISCTINCT" dentro del SELECT que hace que no se repita ningún registro en la tabla auxiliar. 
 Comprueba que no hayan salido duplicados por errores en la tabla original, en dicho caso corrige en el original, borra el contenido de la tabla auxiliar con TRUNCATE TABLE nombre_tabla y repite el proceso
 
-6. Una vez rellenas las tres tablas tenemos que introducir los identificadores o claves externas en la tabla "asignaturas", en el caso de los departamentos sería:
+6. Una vez rellenas las tres tablas, tenemos que introducir los identificadores o claves externas en la tabla "asignaturas", en el caso de los departamentos sería:
 
 UPDATE asignaturas, departamentos SET asignaturas.id_departamento = departamentos.id WHERE asignaturas.departamento = departamentos.nombre
 
@@ -61,4 +61,4 @@ tiene los id y los descriptores de las tablas auxiliares.
 
 (Mostrar aquí imagen contenido_tabla_asignaturas.png)
 
-Para solventar esto borramos los campos con los descriptores y ya tenemos nuestra base de datos normalizada.
+Para solventar esto, borramos los campos con los descriptores y ya tenemos nuestra base de datos normalizada.
